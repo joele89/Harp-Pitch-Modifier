@@ -53,7 +53,9 @@ void loop() {
     byte midiVelocity Serial.read();
     byte outPitch = midiPitch;
     if (!BYPASS) {
-      outPitch = evaluatePitch(midiPitch);
+      if (midiCMD >= 0x80 && midiCMD <= 0x9F) {
+        outPitch = evaluatePitch(midiPitch);
+      }
     }
     Serial.write(midiCMD);
     Serial.write(outPitch);
